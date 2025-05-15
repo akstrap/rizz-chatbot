@@ -16,9 +16,12 @@ app.add_middleware(
 
 
 @app.post("/rizzbot")
+@app.post("/rizzbot")
 async def rizzbot_endpoint(
     message: str = Form(None),
-    file: UploadFile = File(None)
+    file: UploadFile = File(None),
+    sender: str = Form("they"),
+    target: str = Form("they")
 ):
     if file:
         contents = await file.read()
@@ -26,5 +29,6 @@ async def rizzbot_endpoint(
     else:
         text = message
 
-    reply, explanation = get_rizz_response(text)
+    reply, explanation = get_rizz_response(
+        text, sender_pronoun=sender, target_pronoun=target)
     return {"reply": reply, "explanation": explanation}

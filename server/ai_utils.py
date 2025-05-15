@@ -7,11 +7,16 @@ load_dotenv()
 co = cohere.Client(os.getenv("COHERE_API_KEY"))
 
 
-def get_rizz_response(text):
-    prompt = f"""You're an intelligent, witty person giving smooth and clever replies to flirty, awkward, or confusing texts.
-Message: "{text}"
+def get_rizz_response(text, sender_pronoun="they", target_pronoun="they"):
+    prompt = f"""You're an AI trained in the art of modern flirting, respectful romance, and confidence.
 
-Reply with an ideal response, then explain why it works, separated by two newlines.
+A person who uses the pronoun "{sender_pronoun}" has received the following message from someone they’re interested in — that person uses the pronoun "{target_pronoun}".
+
+Your job is to generate a smooth, charming, and context-aware reply to the message, followed by an explanation of why it works.
+
+Message received: "{text}"
+
+Reply first. Then explain your reasoning, separated by two newlines.
 """
 
     response = co.chat(
